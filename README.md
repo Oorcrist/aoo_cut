@@ -1,5 +1,9 @@
 # aoo_cut
 Crée des tiles de 50x50 à partir d'une image. Retourne le résultat sous la forme d'une archive zip.
 
-## Formats supportés
-jpeg, png, gif dont les dimensions sont multiples de 50.
+## Fichiers supportés
+Taille: 2Mo max.
+
+Format: jpeg, gif ou png
+
+Dimensions: multiples de 50
