@@ -14,6 +14,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['image'])) {
     $height = $imageInfo[1];
     $mime = $imageInfo['mime'];
 
+    // Limite de taille en octets (par exemple, 2 Mo)
+    $maxFileSize = 2 * 1024 * 1024; // 2 Mo
+    
+    if ($_FILES['image']['size'] > $maxFileSize) {
+        die('Le fichier est trop volumineux. La taille maximale autorisée est de 2 Mo.');
+    }
+    
     // Vérifier si l'image est découpable en tiles de 50x50
     if ($width % 50 !== 0 || $height % 50 !== 0) {
         die('L\'image doit avoir des dimensions multiples de 50x50.');
@@ -104,7 +111,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['image'])) {
     <form action="" method="post" enctype="multipart/form-data">
         <label for="image">Choisissez une image :</label>
         <input type="file" name="image" id="image" accept="image/*" required>
+        <p>La taille maximale autorisée est de 2 Mo.</p>
         <button type="submit">Envoyer</button>
     </form>
+    <script>
+        document.getElementById('image').addEventListener('change', function () {
+            const file = this.files[0];
+            const maxSize = 2 * 1024 * 1024; // 2 Mo
+        
+            if (file && file.size > maxSize) {
+                alert('Le fichier est trop volumineux. La taille maximale autorisée est de 2 Mo.');
+                this.value = ''; // Réinitialise l'input
+            }
+        });
+    </script>
 </body>
 </html>
